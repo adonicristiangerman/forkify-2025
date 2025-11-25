@@ -737,13 +737,13 @@ const controlRecipes = async function() {
         // 2)Rendering the recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (err) {
-        alert(err);
+        console.log(err);
     }
 };
-[
-    'hashchange',
-    'load'
-].forEach((ev)=>window.addEventListener(ev, controlRecipes));
+const init = function() {
+    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+};
+init();
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","core-js/modules/esnext.promise.try.js":"izUpR","core-js/modules/esnext.symbol.dispose.js":"gz6hK","core-js/modules/web.immediate.js":"bzsBv","./model.js":"3QBkH","./views/recipeView.js":"3wx5k","regenerator-runtime/runtime":"f6ot0"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
@@ -2837,6 +2837,12 @@ class RecipeView {
         this.#parentElement.innerHTML = '';
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
     };
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((ev)=>window.addEventListener(ev, handler));
+    }
     #generateMarkup() {
         return `<figure class="recipe__fig">
           <img src=${this.#data.image} alt="Tomato" class="recipe__img" />
