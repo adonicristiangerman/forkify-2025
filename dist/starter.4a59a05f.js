@@ -737,7 +737,7 @@ const controlRecipes = async function() {
         // 2)Rendering the recipe
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (err) {
-        console.log(err);
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 const init = function() {
@@ -2184,10 +2184,11 @@ const loadRecipe = async function(id) {
         console.log(state.recipe);
     } catch (err) {
         console.error(`${err} \u{26A0}\u{FE0F}`);
+        throw err;
     }
 };
 
-},{"regenerator-runtime":"f6ot0","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4","./helpers":"7nL9P"}],"f6ot0":[function(require,module,exports,__globalThis) {
+},{"regenerator-runtime":"f6ot0","./config":"2hPh4","./helpers":"7nL9P","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"f6ot0":[function(require,module,exports,__globalThis) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2806,7 +2807,7 @@ const getJSON = async function(url) {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./config":"2hPh4"}],"3wx5k":[function(require,module,exports,__globalThis) {
+},{"./config":"2hPh4","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3wx5k":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("url:../../img/icons.svg");
@@ -2817,6 +2818,8 @@ console.log((0, _fractyDefault.default));
 class RecipeView {
     #parentElement = document.querySelector('.recipe');
     #data;
+    #errorMessage = 'We could not find that recipe. Please try another one!';
+    #message = '';
     render(data) {
         this.#data = data;
         const markup = this.#generateMarkup();
@@ -2826,7 +2829,7 @@ class RecipeView {
     #clear() {
         this.#parentElement.innerHTML = '';
     }
-    renderSpinner = function() {
+    renderSpinner() {
         const markup = `
     <div class="spinner">
           <svg>
@@ -2834,9 +2837,37 @@ class RecipeView {
           </svg>
         </div>
   `;
-        this.#parentElement.innerHTML = '';
+        this.#clear();
         this.#parentElement.insertAdjacentHTML('afterbegin', markup);
-    };
+    }
+    renderError(message = this.#errorMessage) {
+        const markup = `
+      <div class="error">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>
+    `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
+    renderMessage(message = this.#errorMessage) {
+        const markup = `
+      <div class="message">
+        <div>
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-smile"></use>
+          </svg>
+        </div>
+        <p>${message}</p>
+      </div>
+    `;
+        this.#clear();
+        this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+    }
     addHandlerRender(handler) {
         [
             'hashchange',
@@ -2935,7 +2966,7 @@ class RecipeView {
 }
 exports.default = new RecipeView();
 
-},{"url:../../img/icons.svg":"fd0vu","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","fracty":"gsPKI"}],"fd0vu":[function(require,module,exports,__globalThis) {
+},{"url:../../img/icons.svg":"fd0vu","fracty":"gsPKI","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"fd0vu":[function(require,module,exports,__globalThis) {
 module.exports = module.bundle.resolve("icons.0809ef97.svg") + "?" + Date.now();
 
 },{}],"gsPKI":[function(require,module,exports,__globalThis) {
