@@ -2,7 +2,7 @@
   "name": "forkify",
   "version": "1.0.0",
   "description": "Recipe application",
-  "homepage": "https://github.com/adonicristiangerman/forkify-2025#readme",
+  "homepage": "index.html",
   "bugs": {
     "url": "https://github.com/adonicristiangerman/forkify-2025/issues"
   },
@@ -18,8 +18,8 @@
     "build": "parcel build index.html"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.16.1",
-    "parcel": "^2.16.1"
+    "@parcel/transformer-sass": "^2.16.0",
+    "parcel": "^2.16.0"
   },
   "dependencies": {
     "core-js": "^3.46.0",
